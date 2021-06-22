@@ -1,0 +1,60 @@
+DocumentLiunk:https://webpack.js.org/guides/typescript/
+
+1)install webpack
+npm install --save-dev webpack webpack-cli webpack-dev-server typescript ts-loader
+
+2)Go to the package.json amd change the version
+in script tag
+
+start": "webpack-dev-server",
+    "build":"webpack"
+
+ "devDependencies": {
+    "ts-loader": "^6.2.1",
+    "typescript": "^4.3.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.11.2"
+  }
+  
+ 3) tsconfig.json
+ "module": "coomonjs", updated with "module": "es2015", target: es6
+ Also Comment root Dir
+ 
+4) For compile: npm run build (if not workiing then go to the package.json "devDependencies" and remove the ts-loader "^" and 
+run npm install then run "npm run build")
+
+Algorith For Webpack:
+1. Define the webpack configration file
+2. write entry and outout files locations
+3. define the rules for compiling the code
+4. make use of resolve statement to tell compiler that which conversion they needs to do before
+5. define new rules inside the package.json
+
+publicPath is used for the see the output directly in console
+
+/********webpack.config.js******/
+
+//node programming
+const path = require('path');
+module.exports ={
+    entry: "./src/index.ts",
+    output: {
+        filename: "bundle.js",
+        path: path.resolve(__dirname,'dist'),
+       publicPath:'dist'
+    },
+    devtool: 'inline-source-map',
+    module: {
+        rules:[
+            {
+                test: /\.ts$/,
+                use:'ts-loader',
+                exclude: /node_modules/
+            }
+        ]
+    },
+   resolve:{
+       extensions:['.ts','.js']
+   }
+};
